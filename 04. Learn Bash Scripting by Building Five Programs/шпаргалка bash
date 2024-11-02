@@ -1,0 +1,71 @@
+which bash - расположение файла
+
+#!/usr/bin/bash - использовать интерпретатор для скрипта (shebang)
+
+read NAME - прочитать в переменную
+
+--- --- ---
+
+echo $* печать аргументов командной строки при запуске скрипта
+
+script.sh arg1 arg2 arg3
+arg1 arg2 arg3
+
+соответственно 0 - имя файла, 1, 2, 3 и т.д. - аргументы
+
+echo $2
+arg2
+
+--- --- --- ---
+
+You can compare integers inside the brackets ([[ ... ]]) of your if with -eq (equal), -ne (not equal), -lt (less than), -le (less than or equal), -gt (greater than), -ge (greater than or equal). 
+
+--- --- ---
+
+echo $?
+показать статус последней команды (код ошибки)
+
+--- --- ---
+
+: '
+многостроковый
+коммент
+'
+
+I=5
+(( I-- ))
+echo $I -> 4
+
+(( )) - производит вычисление. переменные без $
+
+$(( )) - результат вычисления
+
+declare -p печать всех переменных
+
+declare -p J печать переменной J
+
+
+ARR=("a" "b" "c")
+echo ${ARR[*]}
+echo ${ARR[@]}
+печать всего массива
+
+--------------
+
+N=$(( RANDOM % 6 )) - N от 0 до 5
+echo ${RESPONSES[$N]} энный элемент массива
+
+--------------------
+
+FUNCTION_NAME() {
+  STATEMENTS
+}
+
+
+until [[ condition ]]
+do
+  statements
+done
+
+
+

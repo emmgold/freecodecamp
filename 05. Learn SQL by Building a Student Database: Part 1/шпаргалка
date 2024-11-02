@@ -1,0 +1,92 @@
+psql --username=freecodecamp --dbname=postgres
+
+# смотрим базы данных
+\l
+
+# читает построчно в две переменные
+cat courses.csv | while read MAJOR COURSE
+do
+  statements
+done
+
+#переменная IFS - разделитель, по умолчанию пробел, табуляция и новая строка
+declare -p IFS
+
+# можно сразу подменить IFS (установить разделителем запятую)
+cat courses.csv | while IFS="," read MAJOR COURSE
+do
+  statements
+done
+
+# подключиться к базе и выполнить команду
+PSQL="psql -X --username=freecodecamp --dbname=students --no-align --tuples-only -c"
+
+# можно использовать
+$($PSQL "запрос")
+
+# очистить таблицу(ы)
+TRUNCATE tbl_name, tbl_name2; 
+
+#--- --- ---
+
+# _ любой символ
+# % любые несколько символов
+like '_bla' 
+like '%bla'
+
+not like - не похоже
+
+ilike - игнорирует регистр
+
+is null - пустое поле
+is not null - не пустое поле
+
+order by column - упорядочить по
+ORDER BY column DESC - упорядочить в обратном порядке
+
+# упорядочить по col1 в обратном порядке и col2 в прямом порядке
+ORDER BY col1 DESC, col2
+
+# показать первые 10 строк
+limit 10
+
+# --- --- ---
+
+# агрегирующие функции
+
+SELECT MIN(col) FROM tbl;
+       MAX
+       SUM
+       AVG - среднее (average)
+       CEIL - округлить вверх
+       FLOOR - округлить вниз
+       ROUND - округлить до ближайшего целого
+       ROUND(col, 5) - округлить до 5 знаков после запятой
+       COUNT - количество строк (не учитывает null)
+       DISTINCT - показывает только уникальные значения
+# эти операции могут быть вложенными
+
+# --- --- ---
+
+GROUP BY col; - группировка. (каждая строка уникальна)
+# показать количество строк из col2 для каждого значения col1. Col2 обязательно с агрегирующей функцией.
+SELECT col1, COUNT(col2) FROM tbl GROUP BY col1
+
+GROUP BY col HAVING (агрегирующая функция с условием)
+GROUP BY col HAVING COUNT(*) > 5;
+
+# --- --- ---
+
+# full join показывает все строки из обеих таблиц
+SELECT * FROM tbl1 FULL JOIN tbl2 ON tbl1.col1=tbl2.col1;
+
+# left join показывает все строки из левой таблицы (tbl1) и ТОЛЬКО соответствующие им строки из правой таблицы
+
+# right join показывает все строки из правой таблицы (tbl2) и ТОЛЬКО соответствующие им строки из левой таблицы
+
+# inner join показывает только те строки, которые есть в обеих таблицах.
+
+# Если имена столбцов удалённых ключей одинаковые в обеих таблицах, можно использовать USING(col)
+SELECT * FROM tbl1 FULL JOIN tbl2 USING(col1);
+
+# --- --- ---
